@@ -1,3 +1,3 @@
-import { DockerClient } from './client/client.ts';
+import { DockerClient } from "./client/client.ts";
 
-export default new DockerClient('/var/run/docker.sock');
+export default new DockerClient("/var/run/docker.sock");

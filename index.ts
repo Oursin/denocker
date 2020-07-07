@@ -1,7 +1,7 @@
-import * as containers from './containers.ts';
+import * as containers from "./containers.ts";
 
 const Docker = {
-    containers
-}
+  containers,
+};
 
 export default Docker;
