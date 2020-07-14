@@ -121,6 +121,7 @@ export class HttpClient {
     request.headers["Content-type"] = "application/json";
     const headers = this.buildHeaders(request.headers);
     const reqString = head + headers + "\r\n\r\n" + request.body;
+    //console.log(reqString);
     await this.send(reqString);
     const response: HttpResponse = {};
     await this.readHead(response);

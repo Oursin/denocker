@@ -1,7 +1,12 @@
-import * as containers from "./containers.ts";
+import { RegistryAuth } from "./client/auth.ts";
+import { Container } from "./container.ts";
+import { DockerClient } from "./client/client.ts";
 
-const Docker = {
-  containers,
-};
+export default class Docker {
+  containers: Container;
 
-export default Docker;
+  constructor(socketAddress: string, auth: RegistryAuth | null = null) {
+    const client = new DockerClient(socketAddress, auth);
+    this.containers = new Container(client);
+  }
+}
