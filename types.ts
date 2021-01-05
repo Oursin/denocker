@@ -207,7 +207,7 @@ export interface ContainerCreateResponse {
   message?: string;
 }
 
-export {
+export type {
   ListContainer,
   Port,
 };
