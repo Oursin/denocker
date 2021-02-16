@@ -116,9 +116,11 @@ export class HttpClient {
   async sendRequest(request: HttpRequest) {
     const head = `${request.method} ${request.path}?${
       this.buildQueryString(request.query)
-    } HTTP/1.0\r\n`;
-    request.headers["Content-length"] = request.body.length.toString();
-    request.headers["Content-type"] = "application/json";
+    } HTTP/1.1\r\n`;
+    if (request.body.length > 0) {
+      request.headers["Content-length"] = request.body.length.toString();
+      request.headers["Content-type"] = "application/json";
+    }
     const headers = this.buildHeaders(request.headers);
     const reqString = head + headers + "\r\n\r\n" + request.body;
     //console.log(reqString);
