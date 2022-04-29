@@ -3,19 +3,23 @@ import { HttpClient, HttpQuery, HttpRequest } from "./httpClient.ts";
 import { RegistryAuth } from "./auth.ts";
 
 export class DockerClient {
-  socketAddress: string;
+  options: Deno.ConnectOptions;
   authConfig: RegistryAuth | null;
   client: () => Promise<HttpClient>;
 
-  constructor(socketAddress: string, authConfig: RegistryAuth | null = null) {
-    this.socketAddress = socketAddress;
+  constructor(options: string|Deno.ConnectOptions, authConfig: RegistryAuth | null = null) {
+    if(typeof options == "string"){
+      this.options = <any> { transport: "unix", path: options };
+    } else {
+      this.options = options;
+    }
     this.authConfig = authConfig;
     this.client = this.init;
   }
 
   async init(): Promise<HttpClient> {
     const conn = await Deno.connect(
-      <any> { transport: "unix", path: this.socketAddress },
+      this.options
     );
     return new HttpClient(conn);
   }
