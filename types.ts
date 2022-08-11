@@ -38,7 +38,7 @@ enum PortType {
 interface Port {
   IP?: string;
   PrivatePort: number;
-  PublicPOrt?: number;
+  PublicPort?: number;
   Type: PortType;
 }
 
