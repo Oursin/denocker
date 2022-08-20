@@ -1,5 +1,28 @@
 {
     "compilerOptions": {
         "strict": true
+    },
+    "lint": {
+        "files": {
+            "include": [
+                "lib/**/*.ts",
+                "test/**/*.ts"
+            ]
+        }
+    },
+    "fmt": {
+        "files": {
+            "include": [
+                "lib/**/*.ts",
+                "test/**/*.ts"
+            ]
+        }
+    },
+    "test": {
+        "files": {
+            "include": [
+                "tests/**/*.ts"
+            ]
+        }
     }
 }
