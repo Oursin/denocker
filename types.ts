@@ -68,7 +68,7 @@ interface DriverConfig {
 
 interface VolumeOptions {
   NoCopy?: boolean;
-  Labels?: object;
+  Labels?: { [label: string]: string };
   DriverConfig?: DriverConfig;
 }
 
@@ -134,7 +134,7 @@ interface ListContainer {
   Ports?: Port[];
   SizeRw?: number;
   SizeRootFs?: number;
-  Labels?: object;
+  Labels?: { [label: string]: string };
   State?: string;
   Status?: string;
   HostConfig?: HostConfig;
