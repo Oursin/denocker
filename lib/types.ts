@@ -53,7 +53,8 @@ interface HostConfig {
     [port: string]: {
       HostIp?: string;
       HostPort: string;
-  } }[];
+    }[]
+  };
 }
 
 interface NetworkSettings {
