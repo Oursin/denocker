@@ -57,6 +57,16 @@ interface HostConfig {
   };
   // A list of kernel capabilities to add to the container. Conflicts with option 'Capabilities'.
   CapAdd?: string[];
+  // Specification for mounts to be added to the container. 
+  Mounts?: {
+    Type?: "bind" | "volume" | "tmpfs" | "npipe";
+    Source?: string;
+    Target?: string;
+    ReadOnly?: boolean;
+  }[];
+  // Automatically remove the container when the container's process exits. 
+  // This has no effect if RestartPolicy is set.
+  AutoRemove?: boolean;
 }
 
 interface NetworkSettings {
