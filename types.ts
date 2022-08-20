@@ -66,9 +66,11 @@ interface DriverConfig {
   Options?: object;
 }
 
+interface Labels: { [label: string]: string };
+
 interface VolumeOptions {
   NoCopy?: boolean;
-  Labels?: { [label: string]: string };
+  Labels?: Labels;
   DriverConfig?: DriverConfig;
 }
 
@@ -134,7 +136,7 @@ interface ListContainer {
   Ports?: Port[];
   SizeRw?: number;
   SizeRootFs?: number;
-  Labels?: { [label: string]: string };
+  Labels?: Labels;
   State?: string;
   Status?: string;
   HostConfig?: HostConfig;
@@ -188,7 +190,7 @@ export interface ContainerCreate {
   // ONBUILD metadata that were defined in the image's Dockerfile.
   OnBuild?: string[];
   // User-defined key/value metadata.
-  Labels?: { [label: string]: string };
+  Labels?: Labels;
   // Signal to stop a container as a string or unsigned integer
   StopSignal?: string;
   // Timeout to stop a container in seconds.
