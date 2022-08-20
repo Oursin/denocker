@@ -4,7 +4,7 @@ import {
 } from "https://deno.land/std/testing/asserts.ts";
 import { v4 } from "https://deno.land/std/uuid/mod.ts";
 
-import Docker from "../index.ts";
+import Docker from "../lib/index.ts";
 import {sleep} from "./helpers.ts";
 
 const docker = new Docker("/var/run/docker.sock");
