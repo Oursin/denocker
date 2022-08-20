@@ -46,10 +46,10 @@ interface HostConfig {
   // Network mode to use for this container. 
   // Supported standard values are: bridge, host, none, and container: <name | id>.
   // Any other value is taken as a custom network's name to which this container should connect to.
-  NetworkMode: string
+  NetworkMode?: string
   // PortMap describes the mapping of container ports to host ports, 
   // using the container's port-number and protocol as key in the format <port>/<protocol>, for example, 80/udp.
-  PortBindings: {
+  PortBindings?: {
     [port: string]: {
       HostIp?: string;
       HostPort: string;
