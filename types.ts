@@ -188,7 +188,7 @@ export interface ContainerCreate {
   // ONBUILD metadata that were defined in the image's Dockerfile.
   OnBuild?: string[];
   // User-defined key/value metadata.
-  Labels?: { [key: string]: string };
+  Labels?: { [label: string]: string };
   // Signal to stop a container as a string or unsigned integer
   StopSignal?: string;
   // Timeout to stop a container in seconds.
