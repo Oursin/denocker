@@ -52,9 +52,11 @@ interface HostConfig {
   PortBindings?: {
     [port: string]: {
       HostIp?: string;
-      HostPort: string;
+      HostPort?: string;
     }[]
   };
+  // A list of kernel capabilities to add to the container. Conflicts with option 'Capabilities'.
+  CapAdd?: string[];
 }
 
 interface NetworkSettings {
