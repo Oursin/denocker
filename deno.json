@@ -5,24 +5,31 @@
     "lint": {
         "files": {
             "include": [
-                "lib/**/*.ts",
-                "test/**/*.ts"
+                "lib/",
+                "test/"
             ]
         }
     },
     "fmt": {
         "files": {
             "include": [
-                "lib/**/*.ts",
-                "test/**/*.ts"
+                "lib/",
+                "test/"
             ]
+        },
+        "options": {
+            "indentWidth": 4,
+            "useTabs": true
         }
     },
     "test": {
         "files": {
             "include": [
-                "tests/**/*.ts"
+                "tests/"
             ]
         }
+    },
+    "tasks": {
+        "test": "deno test -A --unstable tests/containers.ts"
     }
 }
