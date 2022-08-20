@@ -66,7 +66,7 @@ interface DriverConfig {
   Options?: object;
 }
 
-interface Labels: { [label: string]: string };
+interface Labels { [label: string]: string }
 
 interface VolumeOptions {
   NoCopy?: boolean;
