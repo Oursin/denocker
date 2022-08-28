@@ -95,11 +95,11 @@ export class HttpClient {
     res.body = body;
   }
 
-  async read(buf: Uint8Array) {
+  read(buf: Uint8Array) {
     return this.conn.read(buf);
   }
 
-  async send(data: string) {
+  send(data: string) {
     const enc = new TextEncoder();
 
     return this.conn.write(enc.encode(data));
@@ -113,7 +113,7 @@ export class HttpClient {
     return Object.keys(headers).map((v) => `${v}: ${headers[v]}`).join("\r\n");
   }
 
-  async sendRequest(request: HttpRequest) {
+  async sendRequest(request: HttpRequest): Promise<HttpResponse> {
     const head = `${request.method} ${request.path}?${
       this.buildQueryString(request.query)
     } HTTP/1.1\r\n`;
@@ -129,7 +129,7 @@ export class HttpClient {
     await this.readHead(response);
     await this.readHeaders(response);
     await this.readBody(response);
-    await this.conn.close();
+    this.conn.close();
     return response;
   }
 }

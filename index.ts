@@ -1,6 +1,6 @@
-import { RegistryAuth } from "./client/auth.ts";
+import { RegistryAuth } from "./lib/client/auth.ts";
 import { Container } from "./container.ts";
-import { DockerClient } from "./client/client.ts";
+import { DockerClient } from "./lib/client/client.ts";
 
 export default class Docker {
   containers: Container;

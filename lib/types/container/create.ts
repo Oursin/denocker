@@ -1,146 +1,4 @@
-/*
-*
-* Networking
-*
- */
-
-interface EndpointIPAMConfig {
-  IPv4Address?: string;
-  IPv6Address?: string;
-  LinkLocalIPs: string[];
-}
-
-interface EndpointSettings {
-  IPAMConfig?: EndpointIPAMConfig | undefined;
-  Links?: string[];
-  Aliases?: string[];
-  NetworkID?: string;
-  EndpointID?: string;
-  Gateway?: string;
-  IPAddress?: string;
-  IPPrefixLen?: number;
-  IPv6Gateway?: string;
-  GlobalIPv6Address?: string;
-  MacAddress?: string;
-  DriverOpts?: object;
-}
-
-interface Network {
-  [key: string]: EndpointSettings;
-}
-
-enum PortType {
-  tcp = "tcp",
-  udp = "udp",
-  sctp = "stcp",
-}
-
-interface Port {
-  IP?: string;
-  PrivatePort: number;
-  PublicPOrt?: number;
-  Type: PortType;
-}
-
-interface HostConfig {
-  NetworkMode?: string;
-}
-
-interface NetworkSettings {
-  Networks: Network;
-}
-
-/*
-*
-* FileSystem
-*
- */
-
-interface BindOptions {
-  Propagation: string;
-  NonRecursive: boolean;
-}
-
-interface DriverConfig {
-  Name?: string;
-  Options?: object;
-}
-
-interface VolumeOptions {
-  NoCopy?: boolean;
-  Labels?: object;
-  DriverConfig?: DriverConfig;
-}
-
-interface TmpfsOptions {
-  SizeBytes?: number;
-  Mode?: number;
-}
-
-enum MountType {
-  bind = "bind",
-  volume = "volume",
-  tmpfs = "tmpfs",
-  npipe = "npipe",
-}
-
-enum MountConsistency {
-  default = "default",
-  consistent = "consistent",
-  cached = "cached",
-  delegated = "delegated",
-}
-
-interface Mount {
-  Target?: string;
-  Source?: string;
-  Type?: MountType;
-  Readonly?: boolean;
-  Consistency?: MountConsistency;
-  BindOptions?: BindOptions;
-  VolumeOptions?: VolumeOptions;
-  TmpfsOptions: TmpfsOptions;
-}
-
-/*
-*
-* Containers
-*
- */
-
-interface HealthConfig {
-  /*
-    The test to perform. Possible values are:
-
-    [] inherit healthcheck from image or parent image
-    ["NONE"] disable healthcheck
-    ["CMD", args...] exec arguments directly
-    ["CMD-SHELL", command] run command with system's default shell
-     */
-  Test?: string[];
-  Interval?: number;
-  Timeout?: number;
-  Retries?: number;
-  StartPeriod?: number;
-}
-
-interface ListContainer {
-  Id?: string;
-  Names?: string[];
-  Image?: string;
-  ImageID?: string;
-  Command?: string;
-  Created?: number;
-  Ports?: Port[];
-  SizeRw?: number;
-  SizeRootFs?: number;
-  Labels?: object;
-  State?: string;
-  Status?: string;
-  HostConfig?: HostConfig;
-  NetworkSettings: NetworkSettings;
-  Mounts: Mount[];
-}
+import { HostConfig, HealthConfig, NetworkSettings } from './container.ts'
 
 export interface ContainerCreate {
   // The hostname to use for the container, as a valid RFC 1123 hostname.
@@ -157,7 +15,7 @@ export interface ContainerCreate {
   AttachStderr?: boolean;
   // An object mapping ports to an empty object in the form:
   //{"<port>/<tcp|udp|sctp>": {}}
-  ExposedPorts?: object;
+  ExposedPorts?: Record<string, Record<never, never>>;
   // Attach standard streams to a TTY, including stdin if it is not closed.
   Tty?: boolean;
   // Open stdin
@@ -175,7 +33,7 @@ export interface ContainerCreate {
   // The name of the image to use when creating the container
   Image?: string;
   // An object mapping mount point paths inside the container to empty objects
-  Volumes?: { [key: string]: {} };
+  Volumes?: { [key: string]: Record<never, never> };
   // The working directory for commands to run in.
   WorkingDir?: string;
   // The entry point for the container as a string or an array of strings.
@@ -206,8 +64,3 @@ export interface ContainerCreateResponse {
   Warnings?: string[];
   message?: string;
 }
-
-export type {
-  ListContainer,
-  Port,
-};

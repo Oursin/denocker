@@ -1,9 +1,9 @@
 import {
-  ListContainer,
+  ListContainerResponse,
   ContainerCreate,
-  ContainerCreateResponse,
-} from "./types.ts";
-import { DockerClient } from "./client/client.ts";
+  ContainerCreateResponse, InspectResponse,
+} from "./lib/types/container/mod.ts";
+import { DockerClient } from "./lib/client/client.ts";
 
 interface ListOptions {
   // Return all containers. By default, only running containers are shown
@@ -23,7 +23,7 @@ export class Container {
     this.client = client;
   }
 
-  async list(options?: ListOptions): Promise<ListContainer[]> {
+  async list(options?: ListOptions): Promise<ListContainerResponse[]> {
     const res = await this.client.get("/containers/json", [
       {name: "all", value: options?.all ? "true" : ""},
       {name: "limit", value: options?.limit ? options.limit.toString() : ""},
@@ -59,7 +59,7 @@ export class Container {
     return JSON.parse(res.body);
   }
 
-  async stop(id: string, timeout: number = 10) {
+  async stop(id: string, timeout = 10) {
     const res = await this.client.post(
       `/containers/${id}/stop`,
       "",
@@ -71,7 +71,7 @@ export class Container {
     return JSON.parse(res.body);
   }
 
-  async restart(id: string, timeout: number = 10) {
+  async restart(id: string, timeout = 10) {
     const res = await this.client.post(
       `/containers/${id}/restart`,
       "",
@@ -83,7 +83,7 @@ export class Container {
     return JSON.parse(res.body);
   }
 
-  async kill(id: string, signal: string = "SIGKILL") {
+  async kill(id: string, signal = "SIGKILL") {
     const res = await this.client.post(
       `/containers/${id}/restart`,
       "",
@@ -95,7 +95,7 @@ export class Container {
     return JSON.parse(res.body);
   }
 
-  async wait(id: string, condition: string = "not-running") {
+  async wait(id: string, condition = "not-running") {
     const res = await this.client.post(
       `/containers/${id}/wait`,
       "",
@@ -107,7 +107,7 @@ export class Container {
     return JSON.parse(res.body);
   }
 
-  async rm(id: string, condition: string = "not-running") {
+  async rm(id: string, condition = "not-running") {
     const res = await this.client.delete(
       `/containers/${id}`,
       "",
@@ -117,5 +117,16 @@ export class Container {
       return {};
     }
     return JSON.parse(res.body);
+  }
+
+  async inspect(id: string, size = false): Promise<InspectResponse> {
+    const res = await this.client.get(
+      `/containers/${id}/json`,
+      [{name: "size", value: (Boolean(size)).toString()}]
+    );
+    if (!res.body) {
+      return {};
+    }
+    return JSON.parse(res.body)
   }
 }
