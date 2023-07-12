@@ -44,6 +44,14 @@ interface Port {
 
 interface HostConfig {
   NetworkMode?: string;
+  PortBindings?: {
+    [key: string]: PortBinding[];
+  };
+}
+
+interface PortBinding {
+  HostIp: string;
+  HostPort: string;
 }
 
 interface NetworkSettings {
